@@ -1,77 +1,61 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+from locators import Locators
+from data import EMAIL, PASSWORD, URL_MAIN_PAGE
 
+class TestLoginPage:
 
-def test_login_from_main_page_correct_login_pass_successful_login(main_login_btn, login_pass_recovery_btn, login_email,
-                                                                  login_password, login_btn, main_logo):
-    driver = webdriver.Chrome()
-    driver.get('https://stellarburgers.nomoreparties.site/')
+    def test_login_from_main_page_correct_login_pass_successful_login(self, driver):
 
-    driver.find_element(By.XPATH, main_login_btn).click()
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, login_pass_recovery_btn)))
+        driver.find_element(*Locators.MAIN_LOGIN_BTN).click()
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Locators.LOGIN_PASS_RECOVERY_BTN)))
 
-    driver.find_element(By.XPATH, login_email).send_keys('ArtemMyazov8000@yandex.ru')
-    driver.find_element(By.XPATH, login_password).send_keys('123456')
-    driver.find_element(By.XPATH, login_btn).click()
-    WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, main_logo)))
+        driver.find_element(*Locators.LOGIN_EMAIL).send_keys(EMAIL)
+        driver.find_element(*Locators.LOGIN_PASSWORD).send_keys(PASSWORD)
+        driver.find_element(*Locators.LOGIN_BTN).click()
+        WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((Locators.MAIN_LOGO)))
 
-    assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
-    driver.quit()
+        assert driver.current_url == URL_MAIN_PAGE
 
-def test_login_from_personal_acc_correct_login_pass_successful_login(main_personal_account, login_pass_recovery_btn,
-                                                                     login_email,login_password, login_btn, main_logo):
-    driver = webdriver.Chrome()
-    driver.get('https://stellarburgers.nomoreparties.site/')
+    def test_login_from_personal_acc_correct_login_pass_successful_login(self, driver):
 
-    driver.find_element(By.XPATH, main_personal_account).click()
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, login_pass_recovery_btn)))
+        driver.find_element(*Locators.MAIN_PERSONAL_ACCOUNT).click()
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Locators.LOGIN_PASS_RECOVERY_BTN)))
 
-    driver.find_element(By.XPATH, login_email).send_keys('ArtemMyazov8000@yandex.ru')
-    driver.find_element(By.XPATH, login_password).send_keys('123456')
-    driver.find_element(By.XPATH, login_btn).click()
-    WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, main_logo)))
+        driver.find_element(*Locators.LOGIN_EMAIL).send_keys(EMAIL)
+        driver.find_element(*Locators.LOGIN_PASSWORD).send_keys(PASSWORD)
+        driver.find_element(*Locators.LOGIN_BTN).click()
+        WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((Locators.MAIN_LOGO)))
 
-    assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
-    driver.quit()
+        assert driver.current_url == URL_MAIN_PAGE
 
-def test_login_from_reg_form_correct_login_pass_successful_login(main_login_btn, login_email,login_password,
-                                                                 login_btn, main_logo, login_pass_recovery_btn,
-                                                                 login_reg_btn, reg_login_btn):
-    driver = webdriver.Chrome()
-    driver.get('https://stellarburgers.nomoreparties.site/')
+    def test_login_from_reg_form_correct_login_pass_successful_login(self, driver):
 
-    driver.find_element(By.XPATH, main_login_btn).click()
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, login_pass_recovery_btn)))
-    driver.find_element(By.XPATH, login_reg_btn).click()
-    driver.find_element(By.XPATH, reg_login_btn).click()
+        driver.find_element(*Locators.MAIN_LOGIN_BTN).click()
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Locators.LOGIN_PASS_RECOVERY_BTN)))
+        driver.find_element(*Locators.LOGIN_REGISTRATION).click()
+        driver.find_element(*Locators.REG_LOGIN).click()
 
-    driver.find_element(By.XPATH, login_email).send_keys('ArtemMyazov8000@yandex.ru')
-    driver.find_element(By.XPATH, login_password).send_keys('123456')
-    driver.find_element(By.XPATH, login_btn).click()
-    WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, main_logo)))
+        driver.find_element(*Locators.LOGIN_EMAIL).send_keys(EMAIL)
+        driver.find_element(*Locators.LOGIN_PASSWORD).send_keys(PASSWORD)
+        driver.find_element(*Locators.LOGIN_BTN).click()
+        WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((Locators.MAIN_LOGO)))
 
-    assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
-    driver.quit()
+        assert driver.current_url == URL_MAIN_PAGE
 
-def test_login_from_pass_recovery_correct_login_pass_successful_login(main_login_btn, login_email, login_password,
-                                                                      login_btn, main_logo, login_pass_recovery_btn,
-                                                                      pass_recovery_login):
-    driver = webdriver.Chrome()
-    driver.get('https://stellarburgers.nomoreparties.site/')
+    def test_login_from_pass_recovery_correct_login_pass_successful_login(self, driver):
 
-    driver.find_element(By.XPATH, main_login_btn).click()
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, login_pass_recovery_btn)))
-    driver.find_element(By.XPATH, login_pass_recovery_btn).click()
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, pass_recovery_login)))
-    driver.find_element(By.XPATH, pass_recovery_login).click()
+        driver.find_element(*Locators.MAIN_LOGIN_BTN).click()
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Locators.LOGIN_PASS_RECOVERY_BTN)))
+        driver.find_element(*Locators.LOGIN_PASS_RECOVERY_BTN).click()
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Locators.PASS_RECOVERY_LOGIN)))
+        driver.find_element(*Locators.PASS_RECOVERY_LOGIN).click()
 
-    driver.find_element(By.XPATH, login_email).send_keys('ArtemMyazov8000@yandex.ru')
-    driver.find_element(By.XPATH, login_password).send_keys('123456')
-    driver.find_element(By.XPATH, login_btn).click()
-    WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, main_logo)))
+        driver.find_element(*Locators.LOGIN_EMAIL).send_keys(EMAIL)
+        driver.find_element(*Locators.LOGIN_PASSWORD).send_keys(PASSWORD)
+        driver.find_element(*Locators.LOGIN_BTN).click()
+        WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((Locators.MAIN_LOGO)))
 
-    assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
-    driver.quit()
+        assert driver.current_url == URL_MAIN_PAGE
+
 
